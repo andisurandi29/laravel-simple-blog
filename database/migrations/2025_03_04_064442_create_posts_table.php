@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('content');
             $table->dateTime('publish_date')->nullable();
             $table->enum('status', ['Draft', 'Active', 'Schedule'])->default('Draft');
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); // Jika user dihapus, semua post-nya ikut terhapus
-            $table->timestamps(); // Includes created_at & updated_at
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); 
+            $table->timestamps(); 
         });
     }
 

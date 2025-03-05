@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index(){
-        $query = Post::query();
-        $query->where('user_id', Auth::id());
-        $posts = $query->orderByCreatedAtDesc()->paginate(10);
+    public function index(Request $request)
+    {
+        // Jika user belum login, set posts menjadi koleksi kosong
+        $posts = Auth::check()
+            ? Post::where('user_id', Auth::id())->latest()->paginate(10)
+            : collect(); 
 
         return view("home", compact("posts"));
     }

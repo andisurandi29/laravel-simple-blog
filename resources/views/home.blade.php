@@ -40,7 +40,7 @@
                         <span class="flex-none rounded bg-green-100 px-2 py-1 text-green-800">{{$post->status}}</span>
                     @endif
 
-                    <h3><a href="{{ route('posts.show', $post->id) }}" class="text-blue-500">{{$post->title}}</a></h3>
+                    <h3><a href="{{ route('posts.show', $post) }}" class="text-blue-500">{{$post->title}}</a></h3>
                 </div>
                 <div class="mt-4 flex items-end justify-between">
                     <div>
@@ -50,9 +50,9 @@
                         <div>Updated: {{$post->updated_at}}</div>
                     </div>
                     <div>
-                        <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500">Detail</a> / 
-                        <a href="{{ route('posts.edit', $post->id) }}" class="text-blue-500">Edit</a> /
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline-block" onsubmit="return confirmDelete()">
+                        <a href="{{ route('posts.show', $post) }}" class="text-blue-500">Detail</a> / 
+                        <a href="{{ route('posts.edit', $post) }}" class="text-blue-500">Edit</a> /
+                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="inline-block" onsubmit="return confirmDelete()">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-500">Delete</button>

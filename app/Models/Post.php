@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
@@ -23,19 +23,29 @@ class Post extends Model
         'publish_date' => 'datetime',
     ];
 
+    public $timestamps = true; // Pastikan timestamps aktif
+
+    /**
+     * Relasi dengan User (Author)
+     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function scopeActive($query)
+    /**
+     * Scope untuk mendapatkan post yang statusnya aktif
+     */
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', 'Active');
     }
 
-    public function scopeOrderByCreatedAtDesc($query)
+    /**
+     * Scope untuk mengurutkan berdasarkan `created_at` terbaru
+     */
+    public function scopeOrderByCreatedAtDesc(Builder $query): Builder
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->latest('created_at');
     }
-    
 }

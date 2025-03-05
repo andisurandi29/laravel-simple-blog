@@ -10,7 +10,7 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <section>
-                        <form method="POST" action="{{ route('posts.update', $post->id)}}" class="space-y-6">
+                        <form method="POST" action="{{ route('posts.update', $post)}}" class="space-y-6">
                             @csrf
                             @method('PUT')
                            
