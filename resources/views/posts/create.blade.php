@@ -16,21 +16,21 @@
                             <!-- Title -->
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
-                                <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" required value="{{ old('title', $post->title ?? '') }}" />
+                                <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" required value="{{ old('title') }}" />
                                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
                             </div>
                         
                             <!-- Content -->
                             <div>
                                 <x-input-label for="content" :value="__('Content')" />
-                                <textarea id="content" name="content" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="6" required>{{ old('content', $post->content ?? '') }}</textarea>
+                                <textarea id="content" name="content" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="6" required>{{ old('content') }}</textarea>
                                 <x-input-error :messages="$errors->get('content')" class="mt-2" />
                             </div>
                         
                             <!-- Publish Date -->
                             <x-text-input id="publish_date" name="publish_date" type="datetime-local" class="mt-1 block w-full"
                                 min="{{ now()->format('Y-m-d\TH:i') }}"
-                                value="{{ old('publish_date', isset($post) && $post->publish_date ? $post->publish_date->format('Y-m-d\TH:i') : '') }}" />
+                                value="{{ old('publish_date') }}" />
                             <x-input-error :messages="$errors->get('publish_date')" class="mt-2" />
                         
                         
@@ -38,7 +38,8 @@
                             <div>
                                 <label for="is_draft" class="inline-flex items-center">
                                     <input id="is_draft" type="checkbox" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" 
-                                        name="is_draft" {{ old('is_draft', isset($post) && $post->status === 'Draft' ? 'checked' : '') }}>
+                                        name="is_draft" {{ old('is_draft') ? 'checked' : '' }}>
+
                                     <span class="ms-2 text-sm text-gray-600">{{ __('Save as Draft') }}</span>
                                 </label>
                             </div>

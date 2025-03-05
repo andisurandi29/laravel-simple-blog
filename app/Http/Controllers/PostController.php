@@ -21,21 +21,24 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(PostRequest $request)
+
+    public function store(Request $request)
     {
-        $publish_date = $request->is_draft 
-            ? null 
-            : ($request->publish_date ? Carbon::parse($request->publish_date) : Carbon::now());
+        // Menentukan status berdasarkan checkbox dan publish_date
+        if ($request->has('is_draft')) {
+            $status = 'Draft';
+            $publish_date = null;
+        } else {
+            $status = $request->publish_date ? 'Schedule' : 'Active';
+            $publish_date = $request->publish_date ? Carbon::parse($request->publish_date) : Carbon::now();
+        }
 
-        $status = $request->is_draft 
-            ? 'Draft' 
-            : ($request->publish_date ? 'Schedule' : 'Active');
-
-        $request->user()->posts()->create([
+        Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'status' => $status,
             'publish_date' => $publish_date,
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->route('home')->with('success', 'Post berhasil ditambahkan.');
